@@ -152,9 +152,9 @@ def scrape_employee_data():
         
     except Exception as e:
         print(f"Could not scrape GitHub page: {e}")
-        #return get_fallback_data()
+        #return get_fallback_data() -- testing fallback
 
-# def get_fallback_data():
+# def get_fallback_data(): -- testing fallback
 #     """Fallback data if scraping fails"""
 #     return [
 #         {"name": "Dr. Maya H. Sullivan", "email": "maya.sullivan@trfuture.com", "role": "CEO", "department": "Management"},
@@ -183,7 +183,7 @@ def get_department_from_role(role):
         return "Operations"
 
 def sanitize_filename(name):
-    """Remove problematic characters from filename"""
+    
     # Remove or replace characters that cause issues in Windows filenames
     invalid_chars = '<>:"/\\|?*:'
     for char in invalid_chars:

@@ -45,3 +45,5 @@
 # for i in results:
 #     print(i)
 #     ###
+
+##merged into integrated_render.py

