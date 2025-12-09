@@ -33,6 +33,7 @@ This simulation demonstrates:
 
 
 ####Running the Simulation####
+- Navigate to folder directory
 Run: python scripts/integrated_render.py
  - This scraps employee data from https://xaviermedy.github.io/ github pages
  - Generates targeted phishing emails
@@ -41,8 +42,18 @@ Run: python scripts/integrated_render.py
 Start the server:  python server.py
   - Server runs on http://localhost:8080
   - Landing page with keyboard logging
-  - Keystroke data storage in keyboard_logs
+  - Keystroke data recorded in username and password box
+  - Without the server running, landing page will not load and keystrokes wont be recorded
 
+
+Calculate phishing rate:
+  - Ensure there are keyboard_logs (keystroke data)
+  - Without keystroke data, calculate_phish_rate.py will not run
+  - Run: python calculate_phish_rate.py
+  - Prints total sessions and sessions with submissions
+  - Calculate phishing rate with formula (sessions_with_submission / total_sessions) * 100 
+  - Prints risk assessment for fake company
+  - Saves report to txt file
 
 Features
 1. Automated Email Generation
