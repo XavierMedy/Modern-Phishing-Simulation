@@ -1,4 +1,18 @@
 1) Design and architecture. 
+Modern-Phishing-Simulation -> scripts/data_collection.py
+Modern-Phishing-Simulation -> scripts/render.py
+Modern-Phishing-Simulation -> scripts/integrated_render.py
+Modern-Phishing-Simulation -> templates/Email_template.html
+Modern-Phishing-Simulation/Landing-Page.html
+Modern-Phishing-Simulation/calculate_phish_rate.py
+Modern-Phishing-Simulation/keyboard_logger.py
+Modern-Phishing-Simulation/email_styles.css
+Modern-Phishing-Simulation/landing_styles.css
+Modern-Phishing-Simulation/requirements.txt
+Modern-Phishing-Simulation/server.py
+Modern-Phishing-Simulation/styles.css
+Modern-Phishing-Simulation/README.md
+
 
 2) Implementation details. 
 - The integrated_render.py script implements the phishing-simulation generation workflow by combining template rendering, web scraping, 
