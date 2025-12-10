@@ -30,7 +30,9 @@ get_fallback_data() to use data if inbox failed to be created.  
 - theHarvester posed many issues trying to access Githubpages site
 - SpiderFoot tool can be used as an alternative
 - Using a purchased domain for our fake company
-- 
-
 
 6) A detailed description of any outside libraries used.
+- Flask==3.0.0 (Used for landing page hosting and keylogging)
+- Jinja2==3.1.2 (Used for email templates)
+- beautifulsoup4==4.12.2 (Used for OSINT data reconnaissance)
+- requests==2.31.0 (Used for post request data from landing page)
