@@ -76,11 +76,3 @@ Ensure there are keyboard_logs (keystroke data)
 
 Without keystroke data, calculate_phish_rate.py will not run
 Run: python calculate_phish_rate.py
-
--------Code Documentation-------
-
-
-
-
-
-
