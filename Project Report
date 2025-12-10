@@ -50,3 +50,37 @@ get_fallback_data() to use data if inbox failed to be created.  
 - Jinja2==3.1.2 (Used for email templates)
 - beautifulsoup4==4.12.2 (Used for OSINT data reconnaissance)
 - requests==2.31.0 (Used for post request data from landing page)
+
+-------User Manual-------
+Download Kali Linux from kali.org
+Clone the Repository inside Kali Machine git clone https://github.com/XavierMedy/Modern-Phishing-Simulation.git cd Modern-Phishing-Simulation
+
+Set Up Python Environment
+
+Create virtual environment
+python3 -m venv venv
+
+Activate virtual environment
+source venv/bin/activate
+
+Install Dependencies: pip install -r requirements.txt
+
+Navigate to folder directory Run: python scripts/integrated_render.py
+
+Start the server: python server.py
+
+Keystroke data recorded in username and password box
+Without the server running, landing page will not load and keystrokes wont be recorded
+
+Ensure there are keyboard_logs (keystroke data)
+
+Without keystroke data, calculate_phish_rate.py will not run
+Run: python calculate_phish_rate.py
+
+-------Code Documentation-------
+
+
+
+
+
+
