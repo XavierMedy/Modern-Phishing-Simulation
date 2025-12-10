@@ -1,1 +1,27 @@
+1) Design and architecture. 
 
+2) Implementation details. 
+- The integrated_render.py script implements the phishing-simulation generation workflow by combining template rendering, web scraping, 
+file generation, and directory provisioning into a single automated pipeline. The script first determines all project-relative paths,
+creates required folders (such as the Inbox and Inbox/css directories), and ensures that each required CSS file exists—copying them
+from the project root or generating minimal fallback styles if necessary. It then loads the HTML email template, updates all CSS
+references to point to the Inbox structure, and prepares a Jinja2 renderer for generating personalized messages. Employee data is 
+obtained by scraping a simulated corporate website hosted on GitHub Pages, where the script extracts names, inferred emails, job roles,
+and departmental associations using BeautifulSoup. Each employee is mapped to a phishing scenario, and this information is injected into
+the Jinja2 template to produce a tailored phishing email saved under a sanitized filename. The script also generates an inbox_viewer.html
+interface containing statistics and clickable links to each generated email, and automatically opens this viewer in a browser. Throughout
+the process, the implementation includes error handling, fallback mechanisms, dynamic CSS injection, and clear console logging to support
+reproducibility and debugging.
+
+3) Testing and validation results. 
+- Testing was implemented by providing pseudo code for data collection, server hosting, and key logging users. The testing was 
+committed  inside each of their respective branches, landing-page and data-collection branch. The code was then validated by running
+it separate from main to conclude that it’s working. Neatly,  we had to merge the code together as in, ensure that everything runs
+together. So we created a file called integrated_render.py for this task. To test integrated_render, there is a function called 
+get_fallback_data() to use data if inbox failed to be created.  
+
+4) Security considerations. 
+
+5) Limitations and future improvements. 
+
+6) A detailed description of any outside libraries used.
