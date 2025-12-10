@@ -2,6 +2,12 @@ Modern Phishing Simulation Project Report
 Xavier Medy & Nidra Hayes
 
 Project Overview:
+A comprehensive phishing simulation framework for cybersecurity education and penetration testing. 
+This tool generates targeted phishing campaigns with realistic email templates and includes Kali Linux keyboard logging capabilities.|
+This simulation demonstrates:
+- Targeted email generation based on scraped employee data
+- Department-specific phishing scenarios
+- Kali Linux keyboard event logging
 
 1) Design and architecture. 
 Modern-Phishing-Simulation -> scripts/data_collection.py
